@@ -18,7 +18,7 @@
 
 ;; install the following packages if they aren't already
 (dolist (package '(
-				   bookmark+
+                   bookmark+
                    surround
                    ace-jump-mode
                    color-theme-sanityinc-solarized
@@ -55,7 +55,7 @@
                            better-defaults
                            my-functions
                            my-clock
-						   my-alarm-clock
+                           my-alarm-clock
                            ;; my-color
                            ))
 
@@ -63,41 +63,40 @@
 ;; ------------------------------------------------------------------------
 ;; general settings
 ;; ------------------------------------------------------------------------
-(mapc #'require my-setting-files)		          ; load all my setting files
+(mapc #'require my-setting-files)       ; load all my setting files
 
-(setq inhibit-splash-screen t)			          ; remove splash screen
-(setq inhibit-startup-message t)		          ; remove welcome screen
-;; (menu-bar-mode -1)								  ; remove menu bar
-(tool-bar-mode -1)								  ; remove tool bar
+(setq inhibit-splash-screen t)          ; remove splash screen
+(setq inhibit-startup-message t)        ; remove welcome screen
+(tool-bar-mode -1)                      ; remove toolbar
 
-(global-set-key [M-left] 'windmove-left)          ; move to left windnow
-(global-set-key [M-right] 'windmove-right)        ; move to right window
-(global-set-key [M-up] 'windmove-up)              ; move to upper window
-(global-set-key [M-down] 'windmove-down)          ; move to downer window
+(global-set-key [M-left] 'windmove-left)   ; move to left windnow
+(global-set-key [M-right] 'windmove-right) ; move to right window
+(global-set-key [M-up] 'windmove-up)       ; move to upper window
+(global-set-key [M-down] 'windmove-down)   ; move to downer window
 
-(setq c-basic-offset 4					          ; indentation fix
+(setq c-basic-offset 4                  ; indentation fix
       tab-width 4
       indent-tabs-mode t)
 
-(global-hl-line-mode 1)							  ; highlight current line
-(yas-global-mode 1)								  ; enable YASnippets
+(global-hl-line-mode 1)                 ; highlight current line
+(yas-global-mode 1)                     ; enable YASnippets
 
-(recentf-mode 1)								   ; enable recent files
-(setq recentf-max-menu-items 25)				   ; set max item count
+(recentf-mode 1)                        ; enable recent files
+(setq recentf-max-menu-items 25)        ; set max item count
 (global-set-key (kbd "C-x f") 'recentf-open-files) ; open recent files
 
-(autoload 'smex "smex"					           ; smex
+(autoload 'smex "smex"
   "Smex is a M-x enhancement for Emacs, it provides a convenient interface 
 to your recently and most frequently used commands.")
-(global-set-key (kbd "M-x") 'smex)                 ; open with autocomplete
+(global-set-key (kbd "M-x") 'smex)      ; open with autocomplete
 
-(load-theme 'zenburn t)					           ; load color theme
+(load-theme 'zenburn t)                 ; load color theme
 
-(global-set-key (kbd "C-x m") 'shell)			   ; open shell
-(add-hook 'shell-mode-hook (lambda()	           ; disable line numbers
-                             (linum-mode -1)))	   ; in shell mode
+(global-set-key (kbd "C-x m") 'shell)          ; open shell
+(add-hook 'shell-mode-hook (lambda()           ; disable line numbers
+                             (linum-mode -1))) ; in shell mode
 
-(defalias 'yes-or-no-p 'y-or-n-p)		           ; shorten yes/no answers
+(defalias 'yes-or-no-p 'y-or-n-p)       ; shorten yes/no answers
 
 (show-paren-mode 1)
 (eldoc-mode 1)
@@ -105,7 +104,7 @@ to your recently and most frequently used commands.")
 ;; ------------------------------------------------------------------------
 ;; c/c++ settings settings
 ;; ------------------------------------------------------------------------
-(defun my-c-mode-common-hook ()			; enable line numbers in c-mode
+(defun my-c-mode-common-hook ()        ; enable line numbers in c-mode
   (line-number-mode 1)
   (linum-mode 1)
   (c-toggle-auto-state 1)
@@ -119,7 +118,7 @@ to your recently and most frequently used commands.")
 ;; ------------------------------------------------------------------------
 ;; evil settings
 ;; ------------------------------------------------------------------------
-(evil-mode 1)                            ; press Ctrl-Z to toggle evil mode
+(evil-mode 1)                       ; press Ctrl-Z to toggle evil mode
 
 ;; Exit insert mode by pressing k & j quickly
 (setq key-chord-two-keys-delay 0.5)
@@ -183,6 +182,11 @@ to your recently and most frequently used commands.")
 (define-key emacs-lisp-mode-map
   (kbd "M-.") 'find-function-at-point)
 
+(defun my-lisp-mode-common-hook ()
+  (paredit-mode 1)                      ; enable paredit mode in elisp
+  )
+(add-hook 'emacs-lisp-mode-hook 'my-lisp-mode-common-hook)
+
 
 ;; ------------------------------------------------------------------------
 ;; shell settings
@@ -193,4 +197,4 @@ to your recently and most frequently used commands.")
 ;; ------------------------------------------------------------------------
 ;; other settings
 ;; ------------------------------------------------------------------------
-(require 'my-alarm-clock)				; add an alarm clock functionality
+(require 'my-alarm-clock)           ; add an alarm clock functionality
