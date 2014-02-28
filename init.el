@@ -18,6 +18,7 @@
 
 ;; install the following packages if they aren't already
 (dolist (package '(
+				   bookmark+
                    surround
                    ace-jump-mode
                    color-theme-sanityinc-solarized
@@ -53,6 +54,8 @@
 (defvar my-setting-files '(
                            better-defaults
                            my-functions
+                           my-clock
+						   my-alarm-clock
                            ;; my-color
                            ))
 
@@ -185,3 +188,9 @@ to your recently and most frequently used commands.")
 ;; shell settings
 ;; ------------------------------------------------------------------------
 (setenv "PAGER" "/bin/cat")
+
+
+;; ------------------------------------------------------------------------
+;; other settings
+;; ------------------------------------------------------------------------
+(require 'my-alarm-clock)				; add an alarm clock functionality
