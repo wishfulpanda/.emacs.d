@@ -16,8 +16,40 @@
 ;; loads packages and activates them
 (package-initialize)
 
+;; install the following packages if they aren't already
+(dolist (package '(
+				   ace-jump-mode 
+				   color-theme-sanityinc-solarized
+				   color-theme-sanityinc-tomorrow
+				   evil-leader
+				   evil
+				   evil-numbers
+				   flx-ido
+				   flx
+				   flycheck
+				   f
+				   goto-chg
+				   goto-last-change
+				   helm
+				   java-snippets
+				   key-chord
+				   mark-multiple
+				   projectile
+				   pkg-info
+				   epl
+				   dash
+				   s
+				   smex
+				   undo-tree
+				   yasnippet
+				   zenburn-theme
+                   ))
+  (unless (package-installed-p package)
+    (package-install package)))
+
 ;; define the setting files
 (defvar my-setting-files '(
+						   better-defaults
 						   ;; my-color
 						   ))
 
@@ -47,9 +79,6 @@
 (recentf-mode 1)								   ; enable recent files
 (setq recentf-max-menu-items 25)				   ; set max item count
 (global-set-key (kbd "C-x f") 'recentf-open-files) ; open recent files
-
-(global-set-key (kbd "C-x C-b") 'buffer-menu)      ; open recent files
-
 
 (autoload 'smex "smex"					           ; smex
   "Smex is a M-x enhancement for Emacs, it provides a convenient interface 
