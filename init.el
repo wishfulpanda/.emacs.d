@@ -56,7 +56,11 @@
 to your recently and most frequently used commands.")
 (global-set-key (kbd "M-x") 'smex)                 ; open with autocomplete
 
-(load-theme 'zenburn t)
+(load-theme 'zenburn t)					           ; load color theme
+
+(global-set-key (kbd "C-x m") 'shell)			   ; open shell
+(add-hook 'shell-mode-hook (lambda()	           ; disable line numbers
+							  (linum-mode -1)))	   ; in shell mode
 
 ;; ------------------------------------------------------------------------
 ;; evil settings
