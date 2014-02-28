@@ -53,9 +53,10 @@
 ;; define the setting files
 (defvar my-setting-files '(
                            better-defaults
-                           my-functions
-                           my-clock
+                           helm-find-files-in-project
                            my-alarm-clock
+                           my-clock
+                           my-functions
                            ;; my-color
                            ))
 
@@ -134,7 +135,6 @@ to your recently and most frequently used commands.")
 ;; ------------------------------------------------------------------------
 ;; ace-jump settings (integrated inside evil)
 ;; ------------------------------------------------------------------------
-(define-key evil-normal-state-map (kbd "SPC")     'evil-ace-jump-char-mode)
 (define-key evil-normal-state-map (kbd ", , w")   'evil-ace-jump-word-mode)
 (define-key evil-normal-state-map (kbd ", , c")   'evil-ace-jump-char-mode)
 (define-key evil-normal-state-map (kbd ", , l")   'evil-ace-jump-line-mode)
@@ -172,8 +172,13 @@ to your recently and most frequently used commands.")
 ;; ------------------------------------------------------------------------
 ;; helm settings
 ;; ------------------------------------------------------------------------
+(helm-mode 1)
+(define-key evil-normal-state-map (kbd "SPC SPC")   'helm-M-x)
+
 (global-set-key (kbd "C-c h") 'helm-mini)
 (define-key evil-normal-state-map (kbd ", , e")   'helm-find-files)
+
+(define-key evil-normal-state-map (kbd "C-p")   'helm-find-files-in-project)
 
 
 ;; ------------------------------------------------------------------------
@@ -197,4 +202,5 @@ to your recently and most frequently used commands.")
 ;; ------------------------------------------------------------------------
 ;; other settings
 ;; ------------------------------------------------------------------------
+(require 'helm-find-files-in-project)	; like "Goto Anything"
 (require 'my-alarm-clock)           ; add an alarm clock functionality
