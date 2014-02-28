@@ -32,14 +32,15 @@
 
 (defun hffip:find-project-root ()
   (expand-file-name
-   (or (locate-dominating-file default-directory ".git")
-       (locate-dominating-file default-directory ".svn")
-       (locate-dominating-file default-directory "pom.xml")
-       (locate-dominating-file default-directory "build.sbt")
-       (locate-dominating-file default-directory "Gemfile")
-       (locate-dominating-file default-directory "Makefile")
-       (locate-dominating-file default-directory "makefile")
-       (locate-dominating-file default-directory "setup.py"))))
+   (or 
+    (locate-dominating-file default-directory "Makefile")
+    (locate-dominating-file default-directory "makefile")
+    (locate-dominating-file default-directory "pom.xml")
+    (locate-dominating-file default-directory "build.sbt")
+    (locate-dominating-file default-directory "Gemfile")
+    (locate-dominating-file default-directory "setup.py")
+    (locate-dominating-file default-directory ".git")
+    (locate-dominating-file default-directory ".svn"))))
 
 (defun hffip:remove-trailing-backslash (s)
   (replace-regexp-in-string "/$" "" s))
@@ -65,12 +66,12 @@
   (find-file (concat (hffip:find-project-root) file)))
 
 (setq helm-c-source-files-in-project
-  '((name . "Files in project")
-    (init . (lambda ()
-              (cond ((hffip:git-project-p) (helm-c-sources-files-git-project-function (helm-candidate-buffer 'global)))
-                    (t (helm-c-source-files-under-tree-candidates-function (helm-candidate-buffer 'global))))))
-    (candidates-in-buffer)
-    (action . hffip:find-file)))
+      '((name . "Files in project")
+        (init . (lambda ()
+                  (cond ((hffip:git-project-p) (helm-c-sources-files-git-project-function (helm-candidate-buffer 'global)))
+                        (t (helm-c-source-files-under-tree-candidates-function (helm-candidate-buffer 'global))))))
+        (candidates-in-buffer)
+        (action . hffip:find-file)))
 
 (defun helm-find-files-in-project ()
   (interactive)
