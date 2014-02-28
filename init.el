@@ -105,10 +105,13 @@ to your recently and most frequently used commands.")
 (defun my-c-mode-common-hook ()			; enable line numbers in c-mode
   (line-number-mode 1)
   (linum-mode 1)
+  (c-toggle-auto-state 1)
+  (c-toggle-hungry-state 1)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 (setq c-default-style "bsd")			; set the bsd/Allman style
+
 
 ;; ------------------------------------------------------------------------
 ;; evil settings
@@ -121,6 +124,9 @@ to your recently and most frequently used commands.")
 (key-chord-mode 1)
 
 (global-surround-mode 1)
+
+;; remap to evil command to find-tag
+(define-key evil-normal-state-map (kbd "M-.")   'find-tag)
 
 
 ;; ------------------------------------------------------------------------
