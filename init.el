@@ -100,7 +100,7 @@ to your recently and most frequently used commands.")
 
 (load-theme 'zenburn t)                 ; load color theme
 
-(global-set-key (kbd "C-x m") 'shell)          ; open shell
+(global-set-key (kbd "C-x m") 'ansi-term)      ; open shell
 (add-hook 'shell-mode-hook (lambda()           ; disable line numbers
                              (linum-mode -1))) ; in shell mode
 
@@ -230,3 +230,6 @@ to your recently and most frequently used commands.")
 (require 'helm-find-files-in-project)	; like "Goto Anything"
 (require 'my-alarm-clock)               ; add an alarm clock functionality
 (setenv "PAGER" "/bin/cat")             ; for better shell support
+
+(add-hook 'term-mode-hook               ; enable tab support for ansi-term
+          (lambda() (setq yas-dont-activate t)))
