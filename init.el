@@ -18,13 +18,15 @@
 (package-initialize)
 
 ;; install the following packages if they aren't already
-(dolist
+(dolist 
     (package '(ace-jump-mode
+               auctex
                bookmark+
                color-theme-sanityinc-solarized
                color-theme-sanityinc-tomorrow
                evil-leader
                evil
+               evil-nerd-commenter
                evil-numbers
                flx-ido
                flx
@@ -39,6 +41,7 @@
                java-snippets
                key-chord
                mark-multiple
+               org
                paredit
                projectile
                pkg-info
@@ -137,17 +140,13 @@ to your recently and most frequently used commands.")
 ;; remap to evil command to find-tag
 (define-key evil-normal-state-map (kbd "M-.")   'find-tag)
 
+(evilnc-default-hotkeys)
 
 ;; ------------------------------------------------------------------------
 ;; ace-jump settings (integrated inside evil)
 ;; ------------------------------------------------------------------------
-(define-key evil-normal-state-map (kbd ", , w")   'evil-ace-jump-word-mode)
-(define-key evil-normal-state-map (kbd ", , c")   'evil-ace-jump-char-mode)
-(define-key evil-normal-state-map (kbd ", , l")   'evil-ace-jump-line-mode)
-
-(define-key evil-operator-state-map (kbd ", , c") 'evil-ace-jump-char-mode)
-(define-key evil-operator-state-map (kbd ", , l") 'evil-ace-jump-line-mode)
-
+(define-key evil-normal-state-map (kbd ",ww")   'evil-ace-jump-word-mode)
+(define-key evil-normal-state-map (kbd ",ll")   'evil-ace-jump-line-mode)
 
 ;; ------------------------------------------------------------------------
 ;; mark multiple settings
@@ -182,7 +181,7 @@ to your recently and most frequently used commands.")
 (define-key evil-normal-state-map (kbd "SPC SPC")   'helm-M-x)
 
 (global-set-key (kbd "C-c h") 'helm-mini)
-(define-key evil-normal-state-map (kbd ", , e")   'helm-find-files)
+(define-key evil-normal-state-map (kbd ",e")   'helm-find-files)
 
 (define-key evil-normal-state-map (kbd "C-p")   'helm-find-files-in-project)
 
@@ -202,13 +201,28 @@ to your recently and most frequently used commands.")
 ;; ------------------------------------------------------------------------
 ;; org-mode settings
 ;; ------------------------------------------------------------------------
-(require 'org-latex)
+(require 'ox-latex)
+
+(defun my-org-mode-new-settings ()      ; settings for the new org-export
+  (progn 
+    (require 'ox-latex)
+    (add-to-list 'org-latex-classes
+                 '("beamer"
+                   "\\documentclass\[presentation\]\{beamer\}"
+                   ("\\section\{%s\}" . "\\section*\{%s\}")
+                   ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+                   ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+    (require 'ox-beamer)))
+
+(if (not (string< org-version "8.0"))   ; check the version of org-mode
+    (my-org-mode-new-settings))
 
 ;;; open pdfs with evince
 (add-hook 'org-mode-hook
           '(lambda ()
              (delete '("\\.pdf\\'" . default) org-file-apps)
              (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+
 
 ;; ------------------------------------------------------------------------
 ;; other settings
