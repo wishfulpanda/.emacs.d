@@ -17,36 +17,39 @@
 (package-initialize)
 
 ;; install the following packages if they aren't already
-(dolist (package '(
-                   bookmark+
-                   surround
-                   ace-jump-mode
-                   color-theme-sanityinc-solarized
-                   color-theme-sanityinc-tomorrow
-                   evil-leader
-                   evil
-                   evil-numbers
-                   flx-ido
-                   flx
-                   flycheck
-                   f
-                   goto-chg
-                   goto-last-change
-                   helm-projectile
-                   helm
-                   java-snippets
-                   key-chord
-                   mark-multiple
-                   projectile
-                   pkg-info
-                   epl
-                   dash
-                   s
-                   smex
-                   undo-tree
-                   yasnippet
-                   zenburn-theme)
-                 )
+(dolist (package '
+         (helm-ag
+          ace-jump-mode
+          bookmark+
+          color-theme-sanityinc-solarized
+          color-theme-sanityinc-tomorrow
+          evil-leader
+          evil
+          evil-numbers
+          flx-ido
+          flx
+          flycheck
+          f
+          goto-chg
+          goto-last-change
+          helm-projectile
+          helm
+          icicles
+          java-snippets
+          key-chord
+          mark-multiple
+          org
+          paredit
+          projectile
+          pkg-info
+          epl
+          dash
+          s
+          smex
+          surround
+          undo-tree
+          yasnippet
+          zenburn-theme))
   (unless (package-installed-p package)
     (package-install package)))
 
@@ -83,8 +86,9 @@
 (yas-global-mode 1)                     ; enable YASnippets
 
 (recentf-mode 1)                        ; enable recent files
-(setq recentf-max-menu-items 25)        ; set max item count
-(global-set-key (kbd "C-x f") 'recentf-open-files) ; open recent files
+(setq recentf-max-menu-items 50)        ; set max item count
+(global-set-key (kbd "C-x f") 'helm-recentf) ; open recent files
+(global-set-key (kbd "C-c f") 'helm-locate) ; open recent files
 
 (autoload 'smex "smex"
   "Smex is a M-x enhancement for Emacs, it provides a convenient interface 
@@ -101,6 +105,8 @@ to your recently and most frequently used commands.")
 
 (show-paren-mode 1)
 (eldoc-mode 1)
+
+;;; (icy-mode 1)                            ; enable icicles
 
 ;; ------------------------------------------------------------------------
 ;; c/c++ settings settings
@@ -194,13 +200,52 @@ to your recently and most frequently used commands.")
 
 
 ;; ------------------------------------------------------------------------
-;; shell settings
+;; org-mode settings
 ;; ------------------------------------------------------------------------
-(setenv "PAGER" "/bin/cat")
+(require 'org-latex)                    ; Enable latex support for org-mode
+(unless (boundp 'org-export-latex-classes)
+  (setq org-export-latex-classes nil))
+(add-to-list 'org-export-latex-classes
+             '("article"
+               "\\documentclass{article}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+;;; letter class, for formal letters
+(add-to-list 'org-export-latex-classes
+             '("letter"
+               "\\documentclass[11pt]{letter}\n
+                \\usepackage[utf8]{inputenc}\n
+                \\usepackage[T1]{fontenc}\n
+                \\usepackage{color}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+;;; for beamer support
+(require 'ox-latex)
+(add-to-list 'org-latex-classes
+             '("beamer"
+               "\\documentclass\[presentation\]\{beamer\}"
+               ("\\section\{%s\}" . "\\section*\{%s\}")
+               ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+               ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
+;;; open pdfs with evince
+(add-hook 'org-mode-hook
+          '(lambda ()
+             (delete '("\\.pdf\\'" . default) org-file-apps)
+             (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
 
 
 ;; ------------------------------------------------------------------------
 ;; other settings
 ;; ------------------------------------------------------------------------
 (require 'helm-find-files-in-project)	; like "Goto Anything"
-(require 'my-alarm-clock)           ; add an alarm clock functionality
+(require 'my-alarm-clock)               ; add an alarm clock functionality
+(setenv "PAGER" "/bin/cat")             ; for better shell support
