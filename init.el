@@ -4,7 +4,8 @@
 ;; set the package archive URLs
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")))
+                         ("gnu" . "http://elpa.gnu.org/packages/") 
+                         ("org" . "http://orgmode.org/elpa/")))
 
 (defun add-to-loadpath (&rest dirs)
   (dolist (dir dirs load-path)
@@ -17,39 +18,38 @@
 (package-initialize)
 
 ;; install the following packages if they aren't already
-(dolist (package '
-         (helm-ag
-          ace-jump-mode
-          bookmark+
-          color-theme-sanityinc-solarized
-          color-theme-sanityinc-tomorrow
-          evil-leader
-          evil
-          evil-numbers
-          flx-ido
-          flx
-          flycheck
-          f
-          goto-chg
-          goto-last-change
-          helm-projectile
-          helm
-          icicles
-          java-snippets
-          key-chord
-          mark-multiple
-          org
-          paredit
-          projectile
-          pkg-info
-          epl
-          dash
-          s
-          smex
-          surround
-          undo-tree
-          yasnippet
-          zenburn-theme))
+(dolist
+    (package '(ace-jump-mode
+               bookmark+
+               color-theme-sanityinc-solarized
+               color-theme-sanityinc-tomorrow
+               evil-leader
+               evil
+               evil-numbers
+               flx-ido
+               flx
+               flycheck
+               f
+               goto-chg
+               goto-last-change
+               helm-ag
+               helm-projectile
+               helm
+               icicles
+               java-snippets
+               key-chord
+               mark-multiple
+               paredit
+               projectile
+               pkg-info
+               epl
+               dash
+               s
+               smex
+               surround
+               undo-tree
+               yasnippet
+               zenburn-theme))
   (unless (package-installed-p package)
     (package-install package)))
 
@@ -202,46 +202,13 @@ to your recently and most frequently used commands.")
 ;; ------------------------------------------------------------------------
 ;; org-mode settings
 ;; ------------------------------------------------------------------------
-(require 'org-latex)                    ; Enable latex support for org-mode
-(unless (boundp 'org-export-latex-classes)
-  (setq org-export-latex-classes nil))
-(add-to-list 'org-export-latex-classes
-             '("article"
-               "\\documentclass{article}"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-;;; letter class, for formal letters
-(add-to-list 'org-export-latex-classes
-             '("letter"
-               "\\documentclass[11pt]{letter}\n
-                \\usepackage[utf8]{inputenc}\n
-                \\usepackage[T1]{fontenc}\n
-                \\usepackage{color}"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-;;; for beamer support
-(require 'ox-latex)
-(add-to-list 'org-latex-classes
-             '("beamer"
-               "\\documentclass\[presentation\]\{beamer\}"
-               ("\\section\{%s\}" . "\\section*\{%s\}")
-               ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-               ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+(require 'org-latex)
 
 ;;; open pdfs with evince
 (add-hook 'org-mode-hook
           '(lambda ()
              (delete '("\\.pdf\\'" . default) org-file-apps)
              (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
-
 
 ;; ------------------------------------------------------------------------
 ;; other settings
