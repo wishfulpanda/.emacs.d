@@ -25,6 +25,7 @@
                bookmark+
                color-theme-sanityinc-solarized
                color-theme-sanityinc-tomorrow
+               dired+
                evil-leader
                evil
                evil-nerd-commenter
@@ -111,7 +112,7 @@ to your recently and most frequently used commands.")
 (show-paren-mode 1)
 (eldoc-mode 1)
 
-;;; (icy-mode 1)                            ; enable icicles
+(toggle-diredp-find-file-reuse-dir 1)   ; use the same buffers for dired
 
 ;; ------------------------------------------------------------------------
 ;; c/c++ settings settings
