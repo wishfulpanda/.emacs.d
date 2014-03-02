@@ -21,6 +21,7 @@
 (dolist 
     (package '(ace-jump-mode
                auctex
+               babel
                bookmark+
                color-theme-sanityinc-solarized
                color-theme-sanityinc-tomorrow
@@ -42,6 +43,7 @@
                key-chord
                mark-multiple
                org
+               org-plus-contrib
                paredit
                projectile
                pkg-info
@@ -201,6 +203,14 @@ to your recently and most frequently used commands.")
 ;; ------------------------------------------------------------------------
 ;; org-mode settings
 ;; ------------------------------------------------------------------------
+(org-babel-do-load-languages ; babel, for executing 
+ 'org-babel-load-languages   ; code in org-mode.
+ '((sh . t)
+   (emacs-lisp . t)
+   (ditaa . t)))
+
+(setq org-ditaa-jar-path "/usr/bin/ditaa")
+
 (require 'ox-latex)
 
 (defun my-org-mode-new-settings ()      ; settings for the new org-export
