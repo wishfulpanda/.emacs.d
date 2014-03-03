@@ -65,6 +65,7 @@
                            helm-find-files-in-project
                            my-alarm-clock
                            my-clock
+                           my-dictionary
                            my-functions
                            ;; my-color
                            ))
@@ -113,6 +114,8 @@ to your recently and most frequently used commands.")
 (eldoc-mode 1)
 
 (toggle-diredp-find-file-reuse-dir 1)   ; use the same buffers for dired
+
+(blink-cursor-mode -1)
 
 ;; ------------------------------------------------------------------------
 ;; c/c++ settings settings
@@ -210,7 +213,7 @@ to your recently and most frequently used commands.")
    (emacs-lisp . t)
    (ditaa . t)))
 
-(setq org-ditaa-jar-path "/usr/bin/ditaa")
+(setq org-ditaa-jar-path "/home/gokhan/Downloads/ditaa/DitaaEps.jar")
 
 (require 'ox-latex)
 
@@ -223,6 +226,12 @@ to your recently and most frequently used commands.")
                    ("\\section\{%s\}" . "\\section*\{%s\}")
                    ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
                    ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
+    (defun my-beamer-bold (contents backend info)
+      (when (eq backend 'beamer)
+        (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\textbf" contents)))
+    (add-to-list 'org-export-filter-bold-functions 'my-beamer-bold)
+
     (require 'ox-beamer)))
 
 (if (not (string< org-version "8.0"))   ; check the version of org-mode

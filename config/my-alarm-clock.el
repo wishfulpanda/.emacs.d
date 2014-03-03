@@ -11,7 +11,8 @@
       (while (< i 2)
         (play-sound-file "/home/gokhan/Music/rooster-1.wav")
         (setq i (1+ i)))
-      (message-box text))))
+      (message-box text))
+    (setq alarm-clock-timer nil)))
 
 (defun alarm-clock ()
   "Set an alarm.
