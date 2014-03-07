@@ -1,6 +1,12 @@
 ;; this loads the package manager
 (require 'package)
 
+;;; windows-specific settings
+(if (eq system-type 'windows-nt) 
+    (progn
+      (setq package-user-dir "C:/Users/gokhan/.emacs.d/elpa"
+            visible-bell 1)))
+
 ;; set the package archive URLs
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")
@@ -11,9 +17,13 @@
   (dolist (dir dirs load-path)
     (add-to-list 'load-path (expand-file-name dir) nil #'string=)))
 
+;; converts a relative path (w.r.t. $HOME) to full path
+(defun relative-to-init (path)
+  (expand-file-name path (getenv "HOME")))
+
 ;; add the config folder to the load path
-(add-to-loadpath "~/.emacs.d/config" 
-                 "~/.emacs.d/plugins/mu4e")
+(add-to-loadpath (relative-to-init ".emacs.d/config")
+		 (relative-to-init ".emacs.d/plugins/mu4e"))
 
 ;; loads packages and activates them
 (package-initialize)
