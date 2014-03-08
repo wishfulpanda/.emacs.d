@@ -5,7 +5,8 @@
 (if (eq system-type 'windows-nt) 
     (progn
       (setq package-user-dir "C:/Users/gokhan/.emacs.d/elpa"
-            visible-bell 1)))
+            visible-bell 1)
+      (set-default-font "Consolas-13")))
 
 ;; set the package archive URLs
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
