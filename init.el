@@ -67,6 +67,7 @@
                            my-alarm-clock
                            my-clock
                            my-dictionary
+                           my-fullscreen
                            my-functions
                            my-mail
                            ))
@@ -117,6 +118,9 @@ to your recently and most frequently used commands.")
 (toggle-diredp-find-file-reuse-dir 1)   ; use the same buffers for dired
 
 (blink-cursor-mode -1)
+
+; height is divided with 10 for font size
+(set-face-attribute 'default nil :height 110)
 
 ;; ------------------------------------------------------------------------
 ;; c/c++ settings settings

@@ -59,7 +59,15 @@
 (setq mu4e-sent-messages-behavior 'delete)
 
 ;; allow for updating mail using 'U' in the main view:
-(setq mu4e-get-mail-command "offlineimap")
+(setq mu4e-get-mail-command "offlineimap"
+      mu4e-update-interval 300
+      mu4e-headers-auto-update t)
+
+;;; new mail notification
+(require 'notifications)
+(add-hook 'mu4e-index-updated-hook 
+          (defun my-new-mail-notification () 
+            (notifications-notify :title "mu4e" :body "New update!")))
 
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
