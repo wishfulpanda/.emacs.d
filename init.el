@@ -131,6 +131,9 @@ to your recently and most frequently used commands.")
 
 (toggle-diredp-find-file-reuse-dir 1)   ; use the same buffers for dired
 
+(setq dired-omit-files                  ; omit dot files
+      (concat dired-omit-files "\\|^\\..+$"))
+
 (blink-cursor-mode -1)
 
 ; height is divided with 10 for font size
