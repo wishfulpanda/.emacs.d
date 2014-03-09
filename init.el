@@ -55,8 +55,11 @@
                java-snippets
                key-chord
                mark-multiple
+               matlab-mode
                org
+               org-pandoc
                org-plus-contrib
+               pandoc-mode
                paredit
                projectile
                pkg-info
