@@ -83,6 +83,7 @@
                            my-dictionary
                            my-fullscreen
                            my-functions
+                           my-google
                            my-mail
                            ))
 
@@ -267,6 +268,19 @@ to your recently and most frequently used commands.")
              (delete '("\\.pdf\\'" . default) org-file-apps)
              (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
 
+
+;; ------------------------------------------------------------------------
+;; auctex settings
+;; ------------------------------------------------------------------------
+(setq TeX-auto-save t
+      TeX-parse-self t
+      reftex-plug-into-AUCTeX t
+      TeX-PDF-mode t)
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 
 ;; ------------------------------------------------------------------------
 ;; other settings
