@@ -99,4 +99,17 @@
 ;;; check for current mail settings when sending an email
 (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
 
+;;; view in web browser
+(add-to-list 'mu4e-headers-actions
+         '("in browser" . mu4e-action-view-in-browser) t)
+(add-to-list 'mu4e-view-actions
+         '("in browser" . mu4e-action-view-in-browser) t)
+
+(defun mu4e-mode-keys ()
+  "Modify keypmaps used by `mu4e-mode'"
+  (local-set-key (kbd "C-c o") 'mu4e-view-action))
+
+(add-hook 'mu4e-headers-mode-hook 'mu4e-mode-keys)
+(add-hook 'mu4e-view-mode-hook    'mu4e-mode-keys)
+
 (provide 'my-mail)
