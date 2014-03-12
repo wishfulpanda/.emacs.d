@@ -67,6 +67,7 @@
                dash
                s
                smex
+               sr-speedbar
                surround
                undo-tree
                yasnippet
@@ -80,6 +81,7 @@
                            helm-find-files-in-project
                            my-alarm-clock
                            my-clock
+                           my-cpp-project
                            my-dictionary
                            my-fullscreen
                            my-functions
@@ -140,19 +142,6 @@ to your recently and most frequently used commands.")
 ; height is divided with 10 for font size
 (set-face-attribute 'default nil :height 110)
 
-;; ------------------------------------------------------------------------
-;; c/c++ settings settings
-;; ------------------------------------------------------------------------
-(defun my-c-mode-common-hook ()        ; enable line numbers in c-mode
-  (line-number-mode 1)
-  (linum-mode 1)
-  (c-toggle-auto-state 1)
-  (c-toggle-hungry-state 1)
-  )
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-
-(setq c-default-style "bsd")			; set the bsd/Allman style
-
 
 ;; ------------------------------------------------------------------------
 ;; evil settings
@@ -170,6 +159,23 @@ to your recently and most frequently used commands.")
 (define-key evil-normal-state-map (kbd "M-.")   'find-tag)
 
 (evilnc-default-hotkeys)
+
+
+;; ------------------------------------------------------------------------
+;; c/c++ settings settings
+;; ------------------------------------------------------------------------
+(defun my-c-mode-common-hook ()        ; enable line numbers in c-mode
+  (line-number-mode 1)
+  (linum-mode 1)
+  (c-toggle-auto-state 1)
+  (c-toggle-hungry-state 1)
+  )
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+
+(setq c-default-style "bsd")			; set the bsd/Allman style
+
+(define-key evil-normal-state-map (kbd ",s")   'sr-speedbar-toggle)
+
 
 ;; ------------------------------------------------------------------------
 ;; ace-jump settings (integrated inside evil)
@@ -291,3 +297,7 @@ to your recently and most frequently used commands.")
 
 (add-hook 'term-mode-hook               ; enable tab support for ansi-term
           (lambda() (setq yas-dont-activate t)))
+
+(setq ecb-options-version "2.40")
+
+(set-default-font "Meslo LG S-10")

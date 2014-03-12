@@ -39,21 +39,21 @@
   (mapc #'(lambda (var) (set (car var) (cadr var))) account-vars))
 
 ;;; Set the default mail account's shortcuts
-(defun my-mail-set-shortcuts (account)
+(defun my-mail-setq (account)
   (if (string= account "Gmail")
-      (setq mu4e-maildir-shortcuts '( ("/Gmail/INBOX"               . ?i)
-                                      ("/Gmail/[Gmail].Sent Mail"   . ?s)
-                                      ("/Gmail/[Gmail].Trash"       . ?t)
-                                      ("/Gmail/[Gmail].All Mail"    . ?a))
-            message-send-mail-function 'smtpmail-send-it
+      (setq message-send-mail-function 'smtpmail-send-it
             smtpmail-stream-type 'starttls)
-    (setq mu4e-maildir-shortcuts '( ("/Boun/INBOX"  . ?i)
-                                    ("/Boun/Sent"   . ?s)
-                                    ("/Boun/Trash"  . ?t))
-          message-send-mail-function 'smtpmail-send-it
+    (setq message-send-mail-function 'smtpmail-send-it
           smtpmail-stream-type 'starttls)))
 
-(my-mail-set-shortcuts "Gmail")
+(my-mail-setq "Gmail")
+
+(setq mu4e-maildir-shortcuts '(("/Gmail/INBOX" . ?g)
+                               ("/Boun/INBOX"  . ?b)))
+(mapc #'(lambda (bm) (add-to-list 'mu4e-bookmarks bm))
+      '(("maildir:/Gmail/INBOX OR maildir:/Gmail/[Gmail].Sent\ Mail OR maildir:/Boun/INBOX OR maildir:/Boun/Sent" "All INBOX + SENT" ?i) 
+        ("maildir:/Gmail/INBOX OR maildir:/Gmail/[Gmail].Sent\ Mail" "Gmail INBOX + SENT" ?g) 
+        ("maildir:/Boun/INBOX OR maildir:/Boun/Sent" "Boun INBOX + SENT" ?b)))
 
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
