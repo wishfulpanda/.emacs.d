@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: fprintf
+# key: fp
+# --
+fprintf(${1:stderr}, "$2", $3);

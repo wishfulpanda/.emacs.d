@@ -104,12 +104,7 @@
 (global-set-key [M-up] 'windmove-up)       ; move to upper window
 (global-set-key [M-down] 'windmove-down)   ; move to downer window
 
-(setq c-basic-offset 4                  ; indentation fix
-      tab-width 4
-      indent-tabs-mode t)
-
 (global-hl-line-mode 1)                 ; highlight current line
-(yas-global-mode 1)                     ; enable YASnippets
 
 (recentf-mode 1)                        ; enable recent files
 (setq recentf-max-menu-items 50)        ; set max item count
@@ -139,9 +134,6 @@ to your recently and most frequently used commands.")
 
 (blink-cursor-mode -1)
 
-; height is divided with 10 for font size
-(set-face-attribute 'default nil :height 110)
-
 
 ;; ------------------------------------------------------------------------
 ;; evil settings
@@ -169,19 +161,24 @@ to your recently and most frequently used commands.")
   (linum-mode 1)
   (c-toggle-auto-state 1)
   (c-toggle-hungry-state 1)
+  (setq c-basic-offset 4                  ; indentation fix
+        tab-width 4
+        indent-tabs-mode t)
   )
+
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 (setq c-default-style "bsd")			; set the bsd/Allman style
 
 (define-key evil-normal-state-map (kbd ",s")   'sr-speedbar-toggle)
+(define-key evil-normal-state-map (kbd ",f")   'imenu)
 
 
 ;; ------------------------------------------------------------------------
 ;; ace-jump settings (integrated inside evil)
 ;; ------------------------------------------------------------------------
-(define-key evil-normal-state-map (kbd ",ww")   'evil-ace-jump-word-mode)
-(define-key evil-normal-state-map (kbd ",ll")   'evil-ace-jump-line-mode)
+(define-key evil-normal-state-map (kbd ",w")   'evil-ace-jump-word-mode)
+(define-key evil-normal-state-map (kbd ",l")   'evil-ace-jump-line-mode)
 
 ;; ------------------------------------------------------------------------
 ;; mark multiple settings
@@ -207,6 +204,7 @@ to your recently and most frequently used commands.")
 ;; ------------------------------------------------------------------------
 (define-key evil-normal-state-map (kbd "C-c s") 'yas-insert-snippet)
 (define-key evil-insert-state-map (kbd "C-c s") 'yas-insert-snippet)
+(yas-global-mode 1)                     ; enable YASnippets
 
 
 ;; ------------------------------------------------------------------------
@@ -301,3 +299,14 @@ to your recently and most frequently used commands.")
 (setq ecb-options-version "2.40")
 
 (set-default-font "Meslo LG S-10")
+
+;; Make the GUI version gets the right path
+;; read in PATH from .bashrc
+(if (not (getenv "TERM_PROGRAM"))
+    (progn
+      (setenv "PATH" 
+              (shell-command-to-string "source $HOME/.bashrc && printf $PATH"))
+      (setenv "PIN_HOME" 
+              (shell-command-to-string "source $HOME/.bashrc && printf $PIN_HOME"))
+      (setenv "PIN_ROOT" 
+              (shell-command-to-string "source $HOME/.bashrc && printf $PIN_ROOT"))))
