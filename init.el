@@ -30,48 +30,53 @@
 (package-initialize)
 
 ;; install the following packages if they aren't already
-(dolist 
-    (package '(ace-jump-mode
-               auctex
-               babel
-               bookmark+
-               color-theme-sanityinc-solarized
-               color-theme-sanityinc-tomorrow
-               dired+
-               evil-leader
-               evil
-               evil-nerd-commenter
-               evil-numbers
-               flx-ido
-               flx
-               flycheck
-               f
-               goto-chg
-               goto-last-change
-               helm-ag
-               helm-projectile
-               helm
-               icicles
-               java-snippets
-               key-chord
-               mark-multiple
-               matlab-mode
-               org
-               org-pandoc
-               org-plus-contrib
-               pandoc-mode
-               paredit
-               projectile
-               pkg-info
-               epl
-               dash
-               s
-               smex
-               sr-speedbar
-               surround
-               undo-tree
-               yasnippet
-               zenburn-theme))
+(dolist (package '(ace-jump-mode
+                   ag
+                   auctex
+                   babel
+                   bookmark+
+                   cider
+                   clojure-mode
+                   cmake-mode
+                   color-theme-sanityinc-solarized
+                   color-theme-sanityinc-tomorrow
+                   dired+
+                   ecb
+                   evil-leader
+                   evil
+                   evil-nerd-commenter
+                   evil-numbers
+                   flx-ido
+                   flx
+                   flycheck
+                   f
+                   goto-chg
+                   goto-last-change
+                   hackernews
+                   helm-ag
+                   helm-projectile
+                   helm
+                   icicles
+                   java-snippets
+                   key-chord
+                   mark-multiple
+                   matlab-mode
+                   org
+                   org-pandoc
+                   org-plus-contrib
+                   pandoc-mode
+                   paredit
+                   projectile
+                   pkg-info
+                   epl
+                   dash
+                   s
+                   smex
+                   sr-speedbar
+                   surround
+                   undo-tree
+                   yasnippet
+                   zenburn-theme))
   (unless (package-installed-p package)
     (package-install package)))
 
