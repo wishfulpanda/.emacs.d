@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: gaussian
+# key: gaussian
+# --
+\frac{1}{{${2:\sigma} \sqrt {2\pi } }}e^{{{ - \left( {x - ${1:\mu} } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - $1 } \right)^2 } {2$2 ^2 }}} \right. \kern-\nulldelimiterspace} {2$2 ^2 }}} $0

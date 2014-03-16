@@ -1,0 +1,26 @@
+# -*- mode: snippet -*-
+# name: skeleton
+# key: skeleton
+# --
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{fullpage}
+\epstopdfsetup{update} % only regenerate pdf files when eps file is newer
+
+\title{$1}
+\author{Rami Gökhan Kıcı}
+\date{${2:`(format-time-string "%d %B %Y")`}}
+
+\begin{document}
+
+\maketitle
+
+$0
+
+\end{document}
